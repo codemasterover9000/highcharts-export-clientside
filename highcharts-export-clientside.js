@@ -135,7 +135,7 @@
       mimeType,
       handlerBuilder = function(mimeType) {
         return function() {
-          this.exportChartLocal({
+          this.exportChartLocalLegacy({
             type: mimeType,
             csv: {
               itemDelimiter: ';'
@@ -410,7 +410,7 @@
    * @param options {Object} Overload the export options defined in the chart.
    * @param chartOptions {Object} Additionnal chart options.
    */
-  H.Chart.prototype.exportChartLocal = function(options, chartOptions) {
+  H.Chart.prototype.exportChartLocalLegacy = function(options, chartOptions) {
     var opt = new Opt(options, this.options.exporting, defaultExportOptions);
 
     var type = opt.get("type");
@@ -485,8 +485,5 @@
       steps.download(highChartsObject, context, data);
     });
   }
-
-  // Forces method from export module to use the local version
-  H.Chart.prototype.exportChart = H.Chart.prototype.exportChartLocal;
 
 }(Highcharts));
