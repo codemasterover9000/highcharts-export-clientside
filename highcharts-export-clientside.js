@@ -357,8 +357,11 @@
         };
 
       svgToCanvas(context.svg, context.destWidth, context.destHeight, function(canvas) {
-        data.datauri = context.browserSupportDownload && canvas.toDataURL && canvas.toDataURL(context.type);
-        data.blob = (context.type == MIME_TYPES.PNG) && !context.browserSupportDownload && canvas.msToBlob && canvas.msToBlob();
+        data.blob = (context.type == MIME_TYPES.PNG) && context.browserSupportDownload && canvas.msToBlob && canvas.msToBlob();
+        if (!data.blob)
+        {
+            data.datauri = context.browserSupportDownload && canvas.toDataURL && canvas.toDataURL(context.type);
+        }
 
         callback(data);
       });
